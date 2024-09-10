@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import Movies from '../models/movies'
+//import Movies from '../models/movies'
 
 const movieData = [
   { name: 'Diehard', year: 1988, image: "https://m.media-amazon.com/images/M/MV5BZDViZDAzMjAtY2E1YS00OThkLWE2YTMtYzBmYWRjMWY0MDhkXkEyXkFqcGdeQXRzdGFzaWVr._V1_QL75_UY281_CR19,0,500,281_.jpg" }, 
@@ -8,6 +8,7 @@ const movieData = [
 ]
 // ! This is a program to put data into the database.
 async function seed() {
+  console.log("TODO: add code to seed db here")
 }
 
 seed()

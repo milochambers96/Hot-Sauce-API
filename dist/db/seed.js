@@ -8,12 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const movies_1 = __importDefault(require("../models/movies"));
+//import Movies from '../models/movies'
 const movieData = [
     { name: 'Diehard', year: 1988, image: "https://m.media-amazon.com/images/M/MV5BZDViZDAzMjAtY2E1YS00OThkLWE2YTMtYzBmYWRjMWY0MDhkXkEyXkFqcGdeQXRzdGFzaWVr._V1_QL75_UY281_CR19,0,500,281_.jpg" },
     { name: 'The Grinch', year: 2000, image: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/jim-carey-the-grinch-1665564473.jpg?crop=0.969xw:0.664xh;0,0.0444xh&resize=640:*" },
@@ -22,23 +18,7 @@ const movieData = [
 // ! This is a program to put data into the database.
 function seed() {
     return __awaiter(this, void 0, void 0, function* () {
-        // TODO we connected to the database.
-        // ! This has mongoose connect to Mongodb. This string should have your DB name at the end.
-        yield mongoose_1.default.connect('mongodb://127.0.0.1:27017/moviesdb');
-        console.log('Connected to the database! 🔥');
-        // ! If you want to remove all the existing data in the db
-        yield mongoose_1.default.connection.db.dropDatabase();
-        console.log('Remove existing data.');
-        // TODO describe what the data looks like (making a model) ✅
-        // ! We made a movie model.
-        // TODO put the data into the database
-        const movies = yield movies_1.default.create(movieData);
-        console.log('Here are the movies:');
-        console.log(movies);
-        // ! Final thing: disconnect from mongodb. Good practice to close
-        // ! the session when you're finished.
-        console.log('Disconnecting 🤖..');
-        yield mongoose_1.default.disconnect();
+        console.log("TODO: add code to seed db here");
     });
 }
 seed();
