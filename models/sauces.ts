@@ -1,6 +1,12 @@
 import mongoose, { Schema, model, Types } from "mongoose";
 
-const reviewSchema = new mongoose.Schema(
+interface IReview {
+  text: string;
+  stars: 1 | 2 | 3 | 4 | 5;
+  user: Types.ObjectId;
+}
+
+const reviewSchema: Schema<IReview> = new Schema(
   {
     text: { type: String, required: true },
     stars: { type: Number, required: true, min: 1, max: 5 },
@@ -15,7 +21,7 @@ interface ISauce {
   scoville: number;
   flavourProfile: string[];
   image: string;
-  reviews: [];
+  reviews: Types.DocumentArray<IReview>;
   producer?: Types.ObjectId[];
   user: Types.ObjectId;
 }

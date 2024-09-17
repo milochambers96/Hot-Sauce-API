@@ -21,11 +21,8 @@ function secureRoute(req, res, next) {
             .status(401)
             .json({ message: "Unauthorised. No Auth header found." });
     }
-    // Extract the token from the "Bearer " prefix
     const token = rawToken.replace("Bearer ", "");
-    // console.log("Token extracted:", token);
-    jsonwebtoken_1.default.verify(token, "secret sauce", // Make sure this matches the secret used for signing
-    (err, payload) => __awaiter(this, void 0, void 0, function* () {
+    jsonwebtoken_1.default.verify(token, process.env.SECRET || "development secret", (err, payload) => __awaiter(this, void 0, void 0, function* () {
         if (err || !payload) {
             console.error("Error or payload not found:", err);
             return res.status(401).json({ message: "Unauthorized. Invalid JWT." });
@@ -39,7 +36,6 @@ function secureRoute(req, res, next) {
                 .status(401)
                 .json({ message: "User not found. Invalid JWT!" });
         }
-        // Attach user to the request object
         req.currentUser = user;
         next();
     }));

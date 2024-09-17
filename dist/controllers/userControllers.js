@@ -97,7 +97,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const isValidPassword = (0, users_1.validatePassword)(incomingPassword, foundUser.password);
     if (isValidPassword) {
-        const token = jsonwebtoken_1.default.sign({ userId: foundUser._id, email: foundUser.email }, "secret sauce", { expiresIn: "30d" });
+        const token = jsonwebtoken_1.default.sign({ userId: foundUser._id, email: foundUser.email }, process.env.SECRET || "development secret", { expiresIn: "30d" });
         res.send({
             message: `Login successful, welcome back ${foundUser.username}`,
             token,

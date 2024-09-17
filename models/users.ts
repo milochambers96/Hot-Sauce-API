@@ -1,10 +1,16 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import uniqueValidator from "mongoose-unique-validator";
 import bcrypt from "bcrypt";
 import validator from "validator";
 import mongooseHidden from "mongoose-hidden";
 
-const userSchema = new mongoose.Schema({
+interface IUser {
+  username: string;
+  email: string;
+  password: string;
+}
+
+const userSchema: Schema<IUser> = new Schema({
   username: {
     type: String,
     required: [true, "A username is required to sign up."],
@@ -39,4 +45,6 @@ export function validatePassword(
 
 userSchema.plugin(mongooseHidden({ defaultHidden: { password: true } }));
 
-export default mongoose.model("User", userSchema);
+const User = model<IUser>("User", userSchema);
+
+export default User;
