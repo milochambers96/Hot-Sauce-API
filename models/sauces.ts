@@ -1,8 +1,26 @@
-// * This file is responsible for defining your own model (type) for your data (hot sauces)
+import mongoose, { Schema, model, Types } from "mongoose";
 
-import mongoose from "mongoose";
+const reviewSchema = new mongoose.Schema(
+  {
+    text: { type: String, required: true },
+    stars: { type: Number, required: true, min: 1, max: 5 },
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  },
+  { timestamps: true }
+);
 
-const sauceSchema = new mongoose.Schema({
+interface ISauce {
+  name: string;
+  heatLvl: "mild" | "medium" | "hot" | "super hot";
+  scoville: number;
+  flavourProfile: string[];
+  image: string;
+  reviews: [];
+  producer?: Types.ObjectId[];
+  user: Types.ObjectId;
+}
+
+const sauceSchema: Schema<ISauce> = new Schema({
   name: { type: String, required: true },
   heatLvl: {
     type: String,
@@ -10,10 +28,13 @@ const sauceSchema = new mongoose.Schema({
     enum: ["mild", "medium", "hot", "super hot"],
   },
   scoville: { type: Number, required: true },
-  flavourProfile: { type: Array },
+  flavourProfile: { type: [String] },
   image: { type: String, required: true },
-  producer: { type: mongoose.Schema.Types.ObjectId, ref: "Producer" },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  reviews: [reviewSchema],
+  producer: [{ type: Schema.Types.ObjectId, ref: "Producer" }],
+  user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-export default mongoose.model("Sauce", sauceSchema);
+const Sauce = model<ISauce>("Sauce", sauceSchema);
+
+export default Sauce;

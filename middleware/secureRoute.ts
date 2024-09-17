@@ -7,18 +7,16 @@ export default function secureRoute(
   res: Response,
   next: NextFunction
 ) {
-  console.log("Hello, This is a secure route");
-
   const rawToken = req.headers.authorization;
   if (!rawToken) {
     return res
       .status(401)
-      .json({ message: "Unauthorized. No Auth header found." });
+      .json({ message: "Unauthorised. No Auth header found." });
   }
 
   // Extract the token from the "Bearer " prefix
   const token = rawToken.replace("Bearer ", "");
-  console.log("Token extracted:", token);
+  // console.log("Token extracted:", token);
 
   jwt.verify(
     token,
@@ -48,7 +46,7 @@ export default function secureRoute(
       // Attach user to the request object
       req.currentUser = user;
 
-      next(); // Proceed to the next middleware
+      next();
     }
   );
 }

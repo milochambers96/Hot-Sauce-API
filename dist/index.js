@@ -41,6 +41,7 @@ router.route("/api/hot-sauces/:sauceId").put(secureRoute_1.default, sauceControl
 //! Public producer routes
 router.route("/api/sauce-producers").get(producerController_1.getProducers);
 router.route("/api/sauce-producers").post(secureRoute_1.default, producerController_1.createProducer);
+router.route("/api/sauce-producers/:producerId").get(producerController_1.getProducerById);
 // ! To get POSTing to work, we need to add this line:
 app.use(express_1.default.json());
 app.use(router);
@@ -54,4 +55,3 @@ function start() {
     });
 }
 start();
-// "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmUzMTczYzY2OTdlNjU4NTE3OWYzZGUiLCJlbWFpbCI6ImhvdEBzYXVjZTIyMi5jb20iLCJpYXQiOjE3MjYxNTg2OTIsImV4cCI6MTcyODc1MDY5Mn0.gT_uA4B87iPVNjQCsLxUua_pmZ7QUU_ndmZHKbLKbR0"

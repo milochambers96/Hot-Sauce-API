@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProducers = exports.createProducer = void 0;
+exports.getProducerById = exports.getProducers = exports.createProducer = void 0;
 const producers_1 = __importDefault(require("../models/producers"));
 const createProducer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -20,7 +20,7 @@ const createProducer = (req, res) => __awaiter(void 0, void 0, void 0, function*
         req.body.user = req.currentUser._id;
         const incomingProducer = req.body;
         const newProducer = yield producers_1.default.create(incomingProducer);
-        console.log("The following producer has been added", newProducer);
+        console.log("The following producer has been added", newProducer._id);
         res.send(newProducer);
     }
     catch (error) {
@@ -43,8 +43,25 @@ const getProducers = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             ? console.error(error.message)
             : console.error(error);
         res.status(500).send({
-            message: "Sauces not found, please try searching with '/api/sauce-producers'",
+            message: "Producer not found, please try searching with '/api/sauce-producers'",
         });
     }
 });
 exports.getProducers = getProducers;
+const getProducerById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const producerId = req.params.producerId;
+        console.log("The requested producer ID is:", producerId);
+        const obtainedProducer = yield producers_1.default.findById(producerId).populate("sauces");
+        res.send(obtainedProducer);
+    }
+    catch (error) {
+        error instanceof Error
+            ? console.error(error.message)
+            : console.error(error);
+        res.status(500).send({
+            message: "Producer not found, please try searching with '/api/sauce-producers'",
+        });
+    }
+});
+exports.getProducerById = getProducerById;

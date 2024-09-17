@@ -9,7 +9,11 @@ import {
   updateSauce,
 } from "./controllers/sauceControllers";
 import { signup, login } from "./controllers/userControllers";
-import { createProducer, getProducers } from "./controllers/producerController";
+import {
+  createProducer,
+  getProducers,
+  getProducerById,
+} from "./controllers/producerController";
 import secureRoute from "./middleware/secureRoute";
 
 const app = express();
@@ -40,6 +44,7 @@ router.route("/api/hot-sauces/:sauceId").put(secureRoute, updateSauce);
 //! Public producer routes
 router.route("/api/sauce-producers").get(getProducers);
 router.route("/api/sauce-producers").post(secureRoute, createProducer);
+router.route("/api/sauce-producers/:producerId").get(getProducerById);
 
 // ! To get POSTing to work, we need to add this line:
 app.use(express.json());
@@ -55,4 +60,3 @@ async function start() {
 }
 
 start();
-// "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmUzMTczYzY2OTdlNjU4NTE3OWYzZGUiLCJlbWFpbCI6ImhvdEBzYXVjZTIyMi5jb20iLCJpYXQiOjE3MjYxNTg2OTIsImV4cCI6MTcyODc1MDY5Mn0.gT_uA4B87iPVNjQCsLxUua_pmZ7QUU_ndmZHKbLKbR0"

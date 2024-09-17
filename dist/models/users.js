@@ -9,11 +9,6 @@ const mongoose_unique_validator_1 = __importDefault(require("mongoose-unique-val
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const validator_1 = __importDefault(require("validator"));
 const mongoose_hidden_1 = __importDefault(require("mongoose-hidden"));
-// interface IUser {
-//   username: string;
-//   email: string;
-//   password: string;
-// }
 const userSchema = new mongoose_1.default.Schema({
     username: {
         type: String,

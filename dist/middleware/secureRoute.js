@@ -15,16 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const users_1 = __importDefault(require("../models/users"));
 function secureRoute(req, res, next) {
-    console.log("Hello, This is a secure route");
     const rawToken = req.headers.authorization;
     if (!rawToken) {
         return res
             .status(401)
-            .json({ message: "Unauthorized. No Auth header found." });
+            .json({ message: "Unauthorised. No Auth header found." });
     }
     // Extract the token from the "Bearer " prefix
     const token = rawToken.replace("Bearer ", "");
-    console.log("Token extracted:", token);
+    // console.log("Token extracted:", token);
     jsonwebtoken_1.default.verify(token, "secret sauce", // Make sure this matches the secret used for signing
     (err, payload) => __awaiter(this, void 0, void 0, function* () {
         if (err || !payload) {
@@ -42,7 +41,7 @@ function secureRoute(req, res, next) {
         }
         // Attach user to the request object
         req.currentUser = user;
-        next(); // Proceed to the next middleware
+        next();
     }));
 }
 exports.default = secureRoute;

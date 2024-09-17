@@ -1,6 +1,14 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, model, Types } from "mongoose";
 
-const producerSchema = new mongoose.Schema({
+interface IProducer {
+  name: string;
+  jurisdiction: string;
+  city: string;
+  sauces: Types.ObjectId[];
+  user: Types.ObjectId;
+}
+
+const producerSchema: Schema<IProducer> = new Schema({
   name: { type: String, required: true },
   jurisdiction: { type: String, required: true },
   city: { type: String },
@@ -8,4 +16,6 @@ const producerSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-export default mongoose.model("Producer", producerSchema);
+const Producer = model<IProducer>("Producer", producerSchema);
+
+export default Producer;

@@ -34,7 +34,26 @@ export const getProducers = async (req: Request, res: Response) => {
       : console.error(error);
     res.status(500).send({
       message:
-        "Sauces not found, please try searching with '/api/sauce-producers'",
+        "Producer not found, please try searching with '/api/sauce-producers'",
+    });
+  }
+};
+
+export const getProducerById = async (req: Request, res: Response) => {
+  try {
+    const producerId = req.params.producerId;
+    console.log("The requested producer ID is:", producerId);
+    const obtainedProducer = await Producers.findById(producerId).populate(
+      "sauces"
+    );
+    res.send(obtainedProducer);
+  } catch (error) {
+    error instanceof Error
+      ? console.error(error.message)
+      : console.error(error);
+    res.status(500).send({
+      message:
+        "Producer not found, please try searching with '/api/sauce-producers'",
     });
   }
 };
